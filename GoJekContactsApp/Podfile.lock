@@ -1,0 +1,42 @@
+PODS:
+  - IQKeyboardManager (6.2.1)
+  - MaterialComponents/ActivityIndicator (80.0.0):
+    - MaterialComponents/Palettes
+    - MaterialComponents/private/Application
+    - MDFInternationalization
+    - MotionAnimator (~> 2.0)
+  - MaterialComponents/Palettes (80.0.0)
+  - MaterialComponents/private/Application (80.0.0)
+  - MDFInternationalization (2.0.0)
+  - MotionAnimator (2.8.1):
+    - MotionInterchange (~> 1.6)
+  - MotionInterchange (1.6.0)
+  - SDWebImage (4.4.6):
+    - SDWebImage/Core (= 4.4.6)
+  - SDWebImage/Core (4.4.6)
+
+DEPENDENCIES:
+  - IQKeyboardManager
+  - MaterialComponents/ActivityIndicator
+  - SDWebImage (~> 4.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - IQKeyboardManager
+    - MaterialComponents
+    - MDFInternationalization
+    - MotionAnimator
+    - MotionInterchange
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
+  MaterialComponents: fcd7ab0d6087bce852e2c60c2c712809f76c7f9e
+  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
+  MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
+  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+
+PODFILE CHECKSUM: e580efa92111dfca1b0e079669bb46d72e92274c
+
+COCOAPODS: 1.5.3
