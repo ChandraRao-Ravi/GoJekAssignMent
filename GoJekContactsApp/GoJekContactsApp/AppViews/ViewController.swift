@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tableViewContacts: UITableView!
     var contacts: [ContactsResponse]?
     
@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        CustomLoader.sharedInstance.addLoader(onView: self.view)
         AppPresenter.sharedInstance.conformToAppPresenterProtocol(withDelegate: self)
         AppPresenter.sharedInstance.rootVC = self
         AppPresenter.sharedInstance.fetchContacts()
@@ -50,6 +51,7 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let allContacts = self.contacts, let contact = allContacts[indexPath.row] as? ContactsResponse {
+            CustomLoader.sharedInstance.addLoader(onView: self.view)
             AppPresenter.sharedInstance.fetchContactDetails(forContact: contact)
         }
     }
@@ -90,6 +92,7 @@ extension ViewController: AppPresenterProtocol {
     
     func detailDataReceived(withData data: ContactsResponse?, andError error: Error?) {
         DispatchQueue.main.async {
+            CustomLoader.sharedInstance.removeLoader()
             if let contactDetail = data {
                 let detailVC = UIStoryboard(name: .main).instantiateViewController(withIdentifier: ControllerNames.DetailVC) as! ContactDetailsViewController
                 detailVC.contactDetailType = .detail
@@ -103,6 +106,7 @@ extension ViewController: AppPresenterProtocol {
     
     func dataReceived(withData data: [ContactsResponse]?, andError error: Error?) {
         DispatchQueue.main.async {
+            CustomLoader.sharedInstance.removeLoader()
             if let arrData = data, arrData.count > 0 {
                 self.contacts = arrData
                 self.tableViewContacts.reloadData()

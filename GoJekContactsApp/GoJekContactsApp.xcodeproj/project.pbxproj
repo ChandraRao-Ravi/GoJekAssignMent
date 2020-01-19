@@ -23,6 +23,7 @@
 		76DC127123D458AB0020255E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DC126E23D458AB0020255E /* UIColor+Extension.swift */; };
 		76DC127323D458AB0020255E /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DC127023D458AB0020255E /* UIStoryboard+Extension.swift */; };
 		76DC127523D4E1350020255E /* UserOptionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DC127423D4E1350020255E /* UserOptionsCollectionViewCell.swift */; };
+		76DC127823D5103E0020255E /* CustomLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DC127723D5103E0020255E /* CustomLoader.swift */; };
 		83988166C98872445FFB3C13 /* Pods_GoJekContactsAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2320EF57D21FCE7F27370770 /* Pods_GoJekContactsAppTests.framework */; };
 		CEEDA6D092284DB1D462A394 /* Pods_GoJekContactsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AFB8B507CB753AC830B07E /* Pods_GoJekContactsApp.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		76DC126E23D458AB0020255E /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		76DC127023D458AB0020255E /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		76DC127423D4E1350020255E /* UserOptionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptionsCollectionViewCell.swift; sourceTree = "<group>"; };
+		76DC127723D5103E0020255E /* CustomLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoader.swift; sourceTree = "<group>"; };
 		B08C19C1D4868E8E7C4D6BC7 /* Pods-GoJekContactsAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoJekContactsAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoJekContactsAppTests/Pods-GoJekContactsAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD7A53EF3C15DD272EC3E6A0 /* Pods-GoJekContactsAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoJekContactsAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoJekContactsAppTests/Pods-GoJekContactsAppTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 		76744CD223D096930049AA4D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				76DC127623D5103E0020255E /* Loader */,
 				76DC126D23D458AB0020255E /* Extensions */,
 				76744CD623D098BA0049AA4D /* APIhelper */,
 				76744CD523D098430049AA4D /* Constants */,
@@ -208,6 +211,14 @@
 				76DC127023D458AB0020255E /* UIStoryboard+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		76DC127623D5103E0020255E /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				76DC127723D5103E0020255E /* CustomLoader.swift */,
+			);
+			path = Loader;
 			sourceTree = "<group>";
 		};
 		AF1EE7EED0BDE103F45EEA73 /* Pods */ = {
@@ -409,6 +420,7 @@
 				76744CD823D098CD0049AA4D /* APIHelper.swift in Sources */,
 				76744CDE23D0A12E0049AA4D /* ContactsResponse.swift in Sources */,
 				76744CA923D086700049AA4D /* ViewController.swift in Sources */,
+				76DC127823D5103E0020255E /* CustomLoader.swift in Sources */,
 				76DC127523D4E1350020255E /* UserOptionsCollectionViewCell.swift in Sources */,
 				76744CD423D096A70049AA4D /* AppConstants.swift in Sources */,
 				76B691E323D3985000EF6C24 /* AppPresenter.swift in Sources */,

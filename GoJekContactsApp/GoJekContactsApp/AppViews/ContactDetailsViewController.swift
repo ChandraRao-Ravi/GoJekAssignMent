@@ -179,11 +179,13 @@ class ContactDetailsViewController: UIViewController {
             switch type {
             case .new:
                 print("Call Save API")
+                CustomLoader.sharedInstance.addLoader(onView: self.view)
                 let contactResponse = ContactsResponse(id: nil, first_name: self.txtFieldFirstName.text ?? "", last_name: self.txtFieldLastName.text ?? "", email: self.txtFieldEmailId.text ?? "", phone_number: self.txtFieldMobileNumber.text ?? "", created_at: nil, updated_at: nil, profile_pic: nil, favorite: false, url: nil)
                 AppPresenter.sharedInstance.conformToAppPresenterProtocol(withDelegate: self)
                 AppPresenter.sharedInstance.addContacts(forContact: contactResponse)
             case .edit:
                 print("Call Save API")
+                CustomLoader.sharedInstance.addLoader(onView: self.view)
                 let contactResponse = ContactsResponse(id: self.contactDetail?.id ?? 0, first_name: self.txtFieldFirstName.text ?? "", last_name: self.txtFieldLastName.text ?? "", email: self.txtFieldEmailId.text ?? "", phone_number: self.txtFieldMobileNumber.text ?? "", created_at: nil, updated_at: nil, profile_pic: nil, favorite: self.contactDetail?.favorite ?? false, url: nil)
                 AppPresenter.sharedInstance.conformToAppPresenterProtocol(withDelegate: self)
                 AppPresenter.sharedInstance.updateContactDetails(forContact: contactResponse)
@@ -212,7 +214,7 @@ extension ContactDetailsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let data = self.userOptions, let option = data[indexPath.row] as? [String: String], indexPath.row == 3, let con = self.contactDetail {
             let contactResponse = ContactsResponse(id: self.contactDetail?.id ?? 0, first_name: self.contactDetail?.first_name ?? "", last_name: self.contactDetail?.last_name ?? "", email: self.contactDetail?.email ?? "", phone_number: self.contactDetail?.phone_number ?? "", created_at: self.contactDetail?.created_at, updated_at: self.contactDetail?.updated_at, profile_pic: self.contactDetail?.profile_pic, favorite: (self.contactDetail?.favorite ?? false) ? false : true, url: self.contactDetail?.url)
-            
+            CustomLoader.sharedInstance.addLoader(onView: self.view)
             AppPresenter.sharedInstance.conformToAppPresenterProtocol(withDelegate: self)
             AppPresenter.sharedInstance.updateContactDetails(forContact: contactResponse)
         }
@@ -246,14 +248,17 @@ extension ContactDetailsViewController: UICollectionViewDataSource {
 
 extension ContactDetailsViewController: AppPresenterProtocol {
     func addDetailsDataReceived(withData data: ContactsResponse?, andError error: Error?) {
-        if let contact = data {
-            if let _ = contact.id {
-                self.navigationController?.dismiss(animated: true, completion: {
-                    AppPresenter.sharedInstance.rootVC?.navigationController?.popToRootViewController(animated: true)
-                })
+        DispatchQueue.main.async {
+            CustomLoader.sharedInstance.removeLoader()
+            if let contact = data {
+                if let _ = contact.id {
+                    self.navigationController?.dismiss(animated: true, completion: {
+                        AppPresenter.sharedInstance.rootVC?.navigationController?.popToRootViewController(animated: true)
+                    })
+                }
+            } else {
+                AppPresenter.sharedInstance.showAlertOnController(onController: self, withMessage: AppConstants.ErrorMessage)
             }
-        } else {
-            AppPresenter.sharedInstance.showAlertOnController(onController: self, withMessage: AppConstants.ErrorMessage)
         }
     }
     
@@ -266,26 +271,29 @@ extension ContactDetailsViewController: AppPresenterProtocol {
     }
     
     func updatedDetailsDataReceived(withData data: ContactsResponse?, andError error: Error?) {
-        if let contact = data {
-            if let type = self.contactDetailType {
-                switch type {
-                case .new:
-                    print("New")
-                case .edit:
-                    if let _ = contact.id {
-                        self.navigationController?.dismiss(animated: true, completion: {
-                            AppPresenter.sharedInstance.rootVC?.navigationController?.popToRootViewController(animated: true)
-                        })
-                    }
-                case .detail:
-                    DispatchQueue.main.async {
-                        self.contactDetail = data
-                        self.setUpUIForContactDetail()
+        DispatchQueue.main.async {
+            CustomLoader.sharedInstance.removeLoader()
+            if let contact = data {
+                if let type = self.contactDetailType {
+                    switch type {
+                    case .new:
+                        print("New")
+                    case .edit:
+                        if let _ = contact.id {
+                            self.navigationController?.dismiss(animated: true, completion: {
+                                AppPresenter.sharedInstance.rootVC?.navigationController?.popToRootViewController(animated: true)
+                            })
+                        }
+                    case .detail:
+                        DispatchQueue.main.async {
+                            self.contactDetail = data
+                            self.setUpUIForContactDetail()
+                        }
                     }
                 }
+            } else {
+                AppPresenter.sharedInstance.showAlertOnController(onController: self, withMessage: AppConstants.ErrorMessage)
             }
-        } else {
-            AppPresenter.sharedInstance.showAlertOnController(onController: self, withMessage: AppConstants.ErrorMessage)
         }
     }
 }
